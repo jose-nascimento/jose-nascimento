@@ -1,0 +1,30 @@
+body {
+  background-color: #3f3f3f;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 5em;
+  line-height: 1.2em;
+}
+
+#app {
+  margin-top: 4.5em;
+  text-align: center;
+  color: #EEE;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.console {
+  display: block;
+  margin: 0 auto;
+  width: 720px;
+  height: 720px;
+  background-color: white;
+  box-sizing: inherit;
+}

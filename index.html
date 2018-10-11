@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1>Trabalho 1 de CG</h1>
+    <canvas class="console" width="720" height="720"></canvas>
+     <script src="n.js"></script>
+     <script>
+       /*var es = [
+         [[0, 0], [0, 200]],
+         [[0, 200], [30, 200]],
+         [[30, 200], [30, 30]],
+         [[30, 30], [130, 200]],
+         [[130, 200], [160, 200]],
+         [[160, 200], [160, 0]],
+         [[160, 0], [130, 0]],
+         [[130, 0], [130, 150]],
+         [[130, 150], [40, 0]],
+         [[40, 0], [0, 0]]
+       ];
+       var pos = new Point(20, 20);
+       var o = new Shape('ln', es, pos);
+       console.log(o);
+       for(let i = 0; i < o.vertex.length; i++) {
+         let s = "v" + i + " " + o.vertex[i].x + " " + o.vertex[i].y;
+         console.log(s);
+       }
+       for(let i = 0; i < o.edges.length; i++) {
+         let a = o.edges[i].a;
+         let b = o.edges[i].b;
+         let c = "e " + a + " " + b;
+         console.log(c);
+       }*/
+       function move(o, ctx, w, h, counter, frame) {
+         var t = [[0.99862953475, -0.05233595624], [0.05233595624,0.99862953475]]
+         if(counter == 0) {
+           return
+         } else {
+           counter--;
+           ctx.clearRect(0, 0, w, h);
+           o.displace(-1.20370370370, 3.33333333333);
+           o.transform(t);
+           drawFig(ctx, o);
+           setTimeout(function(){
+             move(o, ctx, w, h, counter, frame);
+           },
+           frame);
+         }
+       }
+       function main(data) {
+         /*var pos = new Point(36.1111111111, 22.2222222222);*/
+         var pos = new Point(36.1111111111, 0);
+         var o = new Shape('N', [data.f1], pos);
+         var canvas = document.querySelector(".console");
+         var ctx = canvas.getContext("2d");
+         drawFig(ctx, o);
+         var w = 720;
+         var h = 720;
+         var counter = 30;
+         var frame = 41.6666666667;
+         setTimeout(function(){
+           move(o, ctx, w, h, counter, frame);
+         },
+         frame);
+       }
+       var resp = fetch("data.json").then(function(response){return response.json();}).then(function(r){main(r);});
+     </script>
+  </div>
+</body>
+</html>
