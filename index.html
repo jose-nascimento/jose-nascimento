@@ -10,6 +10,7 @@
 <body>
   <div id="app">
     <h1>Trabalho 1 de CG</h1>
+    <h2> <a href="wire-frame.html">Trabalho 2-1</a> | <a href="solid.html">Trabalho 2-2</a> | <a href="orange.html">Trabalho 2-3</a></h2>
     <canvas class="console" width="720" height="720"></canvas>
      <script src="n.js"></script>
      <script>
@@ -69,7 +70,7 @@
          setTimeout(function(){
            move(o, ctx, w, h, counter, frame);
          },
-         frame*999);
+         frame);
        }
        var resp = fetch("data.json").then(function(response){return response.json();}).then(function(r){main(r);});
      </script>
