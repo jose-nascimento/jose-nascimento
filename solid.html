@@ -9,9 +9,10 @@
 </head>
 <body>
   <div id="app">
-    <h1>Trabalho 1 de CG</h1>
+    <h1>Trabalho 2 de CG - pt2</h1>
     <canvas class="console" width="720" height="720"></canvas>
      <script src="n.js"></script>
+     <script src="z2.js"></script>
      <script>
        /*var es = [
          [[0, 0], [0, 200]],
@@ -38,38 +39,16 @@
          let c = "e " + a + " " + b;
          console.log(c);
        }*/
-       function move(o, ctx, w, h, counter, frame) {
-         var t = [[0.99862953475, -0.05233595624], [0.05233595624,0.99862953475]]
-         if(counter == 0) {
-           return
-         } else {
-           counter--;
-           ctx.clearRect(0, 0, w, h);
-           o.displace(-1.20370370370, 3.33333333333);
-           o.transform(t);
-           drawFig(ctx, o);
-           setTimeout(function(){
-             move(o, ctx, w, h, counter, frame);
-           },
-           frame);
-         }
-       }
        function main(data) {
          /*var pos = new Point(36.1111111111, 22.2222222222);*/
          var pos = new Point(36.1111111111, 0);
-         var o = new Shape('N', [data.f1], pos);
+         var alldata = [data.f1, data.f2, data.f3, data.f4, data.f5, data.f6,
+         data.f7, data.f8, data.f9, data.f10, data.f11, data.f12];
+         var o = new Shape('Z', alldata, pos);
          var canvas = document.querySelector(".console");
          console.log("Altura: " + canvas.width + ", largura: " + canvas.height);
          var ctx = canvas.getContext("2d");
-         drawFig(ctx, o);
-         var w = 720;
-         var h = 720;
-         var counter = 30;
-         var frame = 41.6666666667;
-         setTimeout(function(){
-           move(o, ctx, w, h, counter, frame);
-         },
-         frame*999);
+         drawSolid(ctx, o);
        }
        var resp = fetch("data.json").then(function(response){return response.json();}).then(function(r){main(r);});
      </script>

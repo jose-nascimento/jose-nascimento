@@ -15,8 +15,8 @@ function draw(ctx, s, dx, dy) {
 function drawFig(ctx, s) {
   var dx = (s.x*36)/5;
   var dy = (s.y*(-36))/5;
-  var h = 720 - (s.height*36)/5;
-  var w = (s.width*36)/5;
+  //var h = 720 - (s.height*36)/5;
+  //var w = (s.width*36)/5;
   console.log("dx: " + dx + " dy: " + dy);
   var f = s.faces[0];
   /*dx = dx - w/2;
@@ -27,18 +27,20 @@ function drawFig(ctx, s) {
 
 function converteTo(f) {
   var vertex = [];
+  console.log("Conversion from: ");
   for(let i = 0; i < f.vertex.length; i++) {
     let x = f.vertex[i].x;
     let y = f.vertex[i].y;
+    console.log("(" + x + ", " + y + ")");
     let xi = (x*36)/5;
     let yi = (y*(-36))/5 + 720;
-    let v = [xi, yi]
+    let v = [xi, yi, 0]
     /*console.log("(" + v[0] + ", " + v[1] + ")");*/
     vertex.push(v);
   }
-  console.log(vertex[0]);
+  console.log(vertex);
   var f = new Face(vertex);
-  console.log(f.vertex[0]);
+  console.log(f.vertex[0].x + " : " + f.vertex[0].y);
   return f;
 }
 
@@ -72,6 +74,7 @@ function getMinMax(s) {
 
 function multiply(m, t) {
   vertex = [];
+  console.log("Multiplication matrix: ");
   console.log("(" + t[0][0] + ", " + t[1][0] + ")");
   console.log("(" + t[0][1] + ", " + t[1][1] + ")");
   /*for(let i = 0; i < m.length; i++) {
@@ -123,12 +126,17 @@ function drawFill(ctx, s) {
 }*/
 
 class Vertice {
-  constructor(x, y) {
+  constructor(x, y, z) {
     this.x = x;
     this.y = y;
+    this.z = z;
   }
   get vector() {
-    return [this.x, this.y];
+    return [this.x, this.y, this.z];
+  }
+  get norm() {
+    var d = this.x*this.x + this.y*this.y + this.z*this.z;
+    return Math.sqrt(d);
   }
 }
 
@@ -152,8 +160,14 @@ class Edge {
 class Face {
   constructor(vertex) {
     this.vertex = [];
-    vertex.forEach((e) => this.vertex.push(new Vertice(e[0], e[1])));
+    vertex.forEach((e) => this.vertex.push(new Vertice(e[0], e[1], e[2])));
   }
+}
+
+function quickT(vertex) {
+  v = [];
+  vertex.forEach((p) => v.push([p[1], p[2]]));
+  return v;
 }
 
 class Shape {
@@ -162,7 +176,9 @@ class Shape {
     this.x = position.x;
     this.y = position.y;
     this.faces = []
+    //faces.forEach((f) => console.log(f));
     faces.forEach((f) => this.faces.push(new Face(f)));
+    console.log("Built!");
     var hw = getMinMax(this);
     this.height = hw[0];
     this.width = hw[1];
